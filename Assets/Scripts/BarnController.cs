@@ -26,7 +26,7 @@ public class BarnController : MonoBehaviour
 
     void Update()
     {
-        if(_wheatPrefab)
+        if(_wheatPrefab)             //Если пшеница есть в сумке , отпралвяем её в амбар и уничтожаем после + получаем монету                                           
         {
             _wheatPrefab.transform.position = Vector3.MoveTowards(_wheatPrefab.transform.position, barn.transform.position, speed * Time.deltaTime);
 
@@ -38,7 +38,7 @@ public class BarnController : MonoBehaviour
             }
         }
 
-        if (quantityCoins > 0)
+        if (quantityCoins > 0)         //Проверяем есть ли монеты, если есть - создаём их и отправляем их в счёт
 
         {
 
@@ -49,13 +49,13 @@ public class BarnController : MonoBehaviour
         else
             StopCoroutine(GettingCoin());
 
-        if(score >= 250)
+        if(score >= 250)            //Если набрано нужное количество монет, включаем панель конца уровня
         {
             finishPanel.SetActive(true);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)    //При косании игроком места сдачи пшеницы, проверяем если она в сумке,если есть -  создаём её и отпраляем в амбар
     {
         if (other.CompareTag("Player"))
         {
