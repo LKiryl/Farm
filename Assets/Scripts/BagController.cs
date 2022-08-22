@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class BagController : MonoBehaviour
 {
-    [SerializeField] private int _value = 0;
-    [SerializeField] private GameObject _bag;
-
-    public int Value => _value;
     
-    void Update()
+    [SerializeField] private GameObject _bag;
+    [SerializeField] private GameObject _barn;
+
+    public int Value = 0;
+    
+    void FixedUpdate()
     {
-        if(_value == 0)
+        if(Value == 0)
         {
             _bag.SetActive(false);
         }
+
+        
+       
     }
 
     private void OnTriggerEnter(Collider other) // Отображение сумки , если в ней есть пшеница
@@ -23,10 +27,10 @@ public class BagController : MonoBehaviour
         {
 
 
-            if (_value < 4)
+            if (Value < 4)
             {
-                _value++;
-                if (_value >= 1)
+                Value++;
+                if (Value >= 1)
                 {
                     _bag.SetActive(true);
                 }

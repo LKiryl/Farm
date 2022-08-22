@@ -15,22 +15,28 @@ public class BarnController : MonoBehaviour
     [SerializeField] private GameObject finishPanel;
     [SerializeField] private int score = 0;
 
-    public int Score => score;
+    
 
     private GameObject _wheatPrefab;
     private GameObject _coin;
     
-    [SerializeField] private float quantityCoins = 0;
+    private int quantityCoins = 0;
+    
 
     [SerializeField] private float speed;
     [SerializeField] private float speedCoin;
+
+    public int Score => score;
     
+
+
 
     void Update()
     {
         if(_wheatPrefab)             //Если пшеница есть в сумке , отпралвяем её в амбар и уничтожаем после + получаем монету                                           
         {
             _wheatPrefab.transform.position = Vector3.MoveTowards(_wheatPrefab.transform.position, barn.transform.position, speed * Time.deltaTime);
+
 
             if (_wheatPrefab.transform.position == barn.transform.position)
             {
@@ -48,8 +54,8 @@ public class BarnController : MonoBehaviour
             
 
         }
-        else
-            StopCoroutine(GettingCoin());
+        //else
+        //    StopCoroutine(GettingCoin());
 
         if(score >= 250)            //Если набрано нужное количество монет, включаем панель конца уровня
         {
@@ -77,10 +83,12 @@ public class BarnController : MonoBehaviour
         
         if (_wheatPrefab == null)
         {
-            for(int i = 0; i < _player.GetComponent<BagController>().Value; i++)
+            for(int i = 0; i < _player.GetComponent<BagController>().Value; _player.GetComponent<BagController>().Value--)
             {
                 _wheatPrefab = Instantiate(wheatPrefab) as GameObject;
+                
                 _wheatPrefab.transform.position = _player.transform.TransformPoint(Vector3.up * 4f);
+                
                 yield return new WaitForSeconds(1f);
             }
             
@@ -96,11 +104,12 @@ public class BarnController : MonoBehaviour
         if (_coin == null)
         {
             
-              _coin = Instantiate(coin) as GameObject;
-                _coin.transform.position = barn.transform.TransformPoint(Vector3.up * 6f);
-                
-            
-            
+            _coin = Instantiate(coin) as GameObject;
+             _coin.transform.position = barn.transform.TransformPoint(Vector3.up * 6f);
+            quantityCoins--;
+
+
+
         }
         yield return new WaitForSeconds(1f);
         if (_coin)
@@ -108,7 +117,7 @@ public class BarnController : MonoBehaviour
             _coin.transform.position = Vector3.MoveTowards(_coin.transform.position, scorePoint.transform.position, speedCoin * Time.deltaTime);
             if (_coin.transform.position == scorePoint.transform.position)
             {
-                quantityCoins--;
+                
                 score += 15;
                 _score.GetComponent<Animator>().enabled = true;
                 gameObject.GetComponent<AudioSource>().Play();
