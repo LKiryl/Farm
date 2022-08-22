@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class BagController : MonoBehaviour
 {
-    public int Value = 0;
+    [SerializeField] private int _value = 0;
     [SerializeField] private GameObject _bag;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    public int Value => _value;
+    
+    void Update()
     {
-        if(Value == 0)
+        if(_value == 0)
         {
             _bag.SetActive(false);
         }
@@ -27,10 +23,10 @@ public class BagController : MonoBehaviour
         {
 
 
-            if (Value < 4)
+            if (_value < 4)
             {
-                Value++;
-                if (Value >= 1)
+                _value++;
+                if (_value >= 1)
                 {
                     _bag.SetActive(true);
                 }

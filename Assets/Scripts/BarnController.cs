@@ -13,7 +13,9 @@ public class BarnController : MonoBehaviour
     [SerializeField] private GameObject scorePoint;
     [SerializeField] private GameObject _score;
     [SerializeField] private GameObject finishPanel;
-    [SerializeField] public int Score = 0;
+    [SerializeField] private int score = 0;
+
+    public int Score => score;
 
     private GameObject _wheatPrefab;
     private GameObject _coin;
@@ -49,7 +51,7 @@ public class BarnController : MonoBehaviour
         else
             StopCoroutine(GettingCoin());
 
-        if(Score >= 250)            //Если набрано нужное количество монет, включаем панель конца уровня
+        if(score >= 250)            //Если набрано нужное количество монет, включаем панель конца уровня
         {
             finishPanel.SetActive(true);
         }
@@ -75,7 +77,7 @@ public class BarnController : MonoBehaviour
         
         if (_wheatPrefab == null)
         {
-            for(int i = 0; i < _player.GetComponent<BagController>().Value; _player.GetComponent<BagController>().Value--)
+            for(int i = 0; i < _player.GetComponent<BagController>().Value; i++)
             {
                 _wheatPrefab = Instantiate(wheatPrefab) as GameObject;
                 _wheatPrefab.transform.position = _player.transform.TransformPoint(Vector3.up * 4f);
@@ -107,7 +109,7 @@ public class BarnController : MonoBehaviour
             if (_coin.transform.position == scorePoint.transform.position)
             {
                 quantityCoins--;
-                Score += 15;
+                score += 15;
                 _score.GetComponent<Animator>().enabled = true;
                 gameObject.GetComponent<AudioSource>().Play();
                 Destroy(_coin);
