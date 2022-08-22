@@ -59,7 +59,7 @@ public class BarnController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (_player.GetComponent<BagController>()._value > 0)
+            if (_player.GetComponent<BagController>().Value > 0)
             {
                 StartCoroutine(PayWheat());
             }
@@ -75,7 +75,7 @@ public class BarnController : MonoBehaviour
         
         if (_wheatPrefab == null)
         {
-            for(int i = 0; i < _player.GetComponent<BagController>()._value; _player.GetComponent<BagController>()._value--)
+            for(int i = 0; i < _player.GetComponent<BagController>().Value; _player.GetComponent<BagController>().Value--)
             {
                 _wheatPrefab = Instantiate(wheatPrefab) as GameObject;
                 _wheatPrefab.transform.position = _player.transform.TransformPoint(Vector3.up * 4f);

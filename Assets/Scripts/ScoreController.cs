@@ -17,8 +17,8 @@ public class ScoreController : MonoBehaviour
 
     void Update()
     {
-        _bagScore.text = $"{_bag.GetComponent<BagController>()._value} / 4";
-        _score.text = $"{_barn.GetComponent<BarnController>().score}/250";
+        _bagScore.text = $"{_bag.GetComponent<BagController>().Value} / 4";
+        _score.text = $"{_barn.GetComponent<BarnController>().Score}/250";
 
         
     }
